@@ -23,9 +23,9 @@ namespace BlackJack
             InitializeComponent();
         }
 
-        private void btnPlay_Click(object sender, EventArgs e)
+        private void btnPlay_Click(object sender, EventArgs e)  //Button that starts the game and creates a deck
         {
-            for (int i = 1; i < 14; i++)           //Loop that builds the deck (52 cards, 4 suits)
+            for (int i = 1; i < 14; i++)                         //Loop that builds the deck (52 cards, 4 suits)
             {
                 string tempname = i.ToString();
 
@@ -54,7 +54,7 @@ namespace BlackJack
         }
       
 
-        private void btnDeal_Click(object sender, EventArgs e)
+        private void btnDeal_Click(object sender, EventArgs e)     //Button for dealing initial cards
         {
             Random rnd = new Random();
 
