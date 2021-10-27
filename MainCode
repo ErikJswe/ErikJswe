@@ -1,0 +1,114 @@
+namespace BlackJack
+{
+    public partial class Form1 : Form
+    {
+
+        List<Card> deckComp = new List<Card>();
+        List<string> deckStr = new List<string>();
+
+        List<Card> dealerHand = new List<Card>();
+        List<string> dealerHandStr = new List<string>();
+
+        List<Card> playerHand = new List<Card>();
+        List<string> playerHandStr = new List<string>();
+
+        int summaD = 0;
+        int summaP = 0;
+        int valueFD = 0;
+
+
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            for (int i = 1; i < 14; i++)
+            {
+                string tempname = i.ToString();
+
+                Card newCardC = new Card("clubs", tempname, i);
+                deckComp.Add(newCardC);
+                deckStr.Add(newCardC.ToString());
+
+                Card newCardH = new Card("hearts", tempname, i);
+                deckComp.Add(newCardH);
+                deckStr.Add(newCardH.ToString());
+
+                Card newCardS = new Card("spades", tempname, i);
+                deckComp.Add(newCardS);
+                deckStr.Add(newCardS.ToString());
+
+                Card newCardD = new Card("diamonds", tempname, i);
+                deckComp.Add(newCardD);
+                deckStr.Add(newCardD.ToString());
+
+            }
+            
+           lbxDeck.Items.AddRange(deckStr.ToArray());
+
+
+
+        }
+      
+
+        private void btnDeal_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+
+            int rand1 = rnd.Next(1, 53);    //Skapar random siffra 1-52
+
+            dealerHand.Add(deckComp[rand1]);                       //Lägger till random objekt/kort från leken till husets hand
+            valueFD = deckComp[rand1].value;               //Sparar värdet på upponervända kortet
+            dealerHandStr.Add("Face down card");                 //Lägger till första kortet uppochned till husets hand
+            deckComp.RemoveAt(rand1);
+            deckStr.RemoveAt(rand1);
+
+
+            int rand2 = rnd.Next(1, 52);    //Skapar random siffra 1-51
+
+            dealerHand.Add(deckComp[rand2]);                       //Lägger till random objekt/kort från leken till husets hand
+            summaD = summaD + deckComp[rand2].value;               //Sparar värdet i "summan"
+            dealerHandStr.Add(deckComp[rand2].ToString());         //Lägger till kortet i array för husets hand
+            deckComp.RemoveAt(rand2);
+            deckStr.RemoveAt(rand2);
+
+            lbxDealerHand.Items.AddRange(dealerHandStr.ToArray()); //Lägger till array till listbox
+            lblHouseSum.Text = summaD.ToString();                  //Visar husets summa
+
+            int rand3 = rnd.Next(1, 51); //Skapar random siffra 1-50
+
+            playerHand.Add(deckComp[rand3]);                     //Ger ett kort till Lista Player hand
+            summaP = summaP + deckComp[rand3].value;             //Adderar värde till summa Pl.hand
+            playerHandStr.Add(deckComp[rand3].ToString());
+            deckComp.RemoveAt(rand3);
+            deckStr.RemoveAt(rand3);
+            lbxPlayerHand.Items.Add(deckComp[rand3].ToString()); //Lägger till array till listbox P.hand
+
+            lbxDeck.Items.Clear();                                 //Suddar ut texten i listbox "Deck"
+            lbxDeck.Items.AddRange(deckStr.ToArray());             //Lägger tillbaka texten i "Deck", nu utan korten som dragits
+
+        }
+
+        private void btnAddCard_Click(object sender, EventArgs e) //Knapp för att ta fler kort
+        {
+            Random rnd = new Random();
+
+            int rand3 = rnd.Next(1, deckComp.Count()); //Skapar random siffra mellan 1 och antalet element kvar i kortleken (Deck)
+
+            playerHand.Add(deckComp[rand3]);            //Ger ett kort till Lista Player hand
+            summaP = summaP + deckComp[rand3].value;    //Adderar värde till summa Pl.hand
+            playerHandStr.Add(deckComp[rand3].ToString());
+            
+            deckComp.RemoveAt(rand3);
+            deckStr.RemoveAt(rand3);
+
+            lbxPlayerHand.Items.Add(deckComp[rand3].ToString()); //Lägger till array till listbox P.hand
+
+
+
+        }
+    }
+}
