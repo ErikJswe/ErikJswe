@@ -1,0 +1,31 @@
+class Card
+    {
+        public string colour;
+        public string name;
+        public int value;
+
+        public Card(string aColour, string aName, int aValue)
+        {
+            colour = aColour;
+            name = aName;
+            value = aValue;
+
+            if (aValue > 10)
+                value = 10;
+
+            if (aName == "1")
+                name = "Ace";
+            else if (aName == "11")
+                name = "Jack";
+            else if (aName == "12")
+                name = "Queen";
+            else if (aName == "13")
+                name = "King";
+        }
+
+        public override string ToString()
+        {
+            return name + " of " + colour;
+        }
+    }
+}
